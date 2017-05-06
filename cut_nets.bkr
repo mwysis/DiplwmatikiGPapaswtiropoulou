@@ -1,0 +1,477 @@
+{
+    "beaker": "2",
+    "evaluators": [
+        {
+            "name": "HTML",
+            "plugin": "HTML",
+            "view": {
+                "cm": {
+                    "mode": "htmlmixed"
+                }
+            }
+        },
+        {
+            "name": "JavaScript",
+            "plugin": "JavaScript",
+            "view": {
+                "cm": {
+                    "mode": "javascript",
+                    "background": "#FFE0F0"
+                }
+            },
+            "languageVersion": "ES2015"
+        },
+        {
+            "name": "IPython",
+            "plugin": "IPython",
+            "setup": "%matplotlib inline\nimport numpy\nimport matplotlib\nfrom matplotlib import pylab, mlab, pyplot\nnp = numpy\nplt = pyplot\nfrom IPython.display import display\nfrom IPython.core.pylabtools import figsize, getfigs\nfrom pylab import *\nfrom numpy import *\n",
+            "view": {
+                "cm": {
+                    "mode": "python"
+                }
+            }
+        }
+    ],
+    "cells": [
+        {
+            "id": "code6PQvfX",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "import warnings",
+                    "warnings.filterwarnings(\"ignore\")",
+                    "",
+                    "import pandas as pd",
+                    "from pandas.tools.plotting import scatter_matrix",
+                    "import json ",
+                    "import os",
+                    "import imp",
+                    "import networkx as nx",
+                    "from collections import Counter",
+                    "import itertools as it",
+                    "import seaborn as sns",
+                    "# sns.set()",
+                    "sns.set_style(\"white\")",
+                    "",
+                    "%load_ext autoreload"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Hidden",
+                "pluginName": "IPython",
+                "shellId": "0844973A293F416589A16E6E97E142B2",
+                "elapsedTime": 874
+            },
+            "evaluatorReader": true,
+            "lineCount": 16
+        },
+        {
+            "id": "codep9kjev",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "input_dir='/home/mosesboudourides/Dropbox/GradRes/DiplwmatikiGP/Notebooks'",
+                    "# input_dir='/home/sergios-len/Dropbox/GradRes/DiplwmatikiGP/Notebooks'",
+                    "",
+                    "pp= !pwd",
+                    "os.chdir(input_dir)",
+                    "from test_class_tpa import create_df",
+                    "import utils",
+                    "os.chdir(pp[0])",
+                    "",
+                    "def create_beaker_com_dict(sps):",
+                    "    nsps={}",
+                    "    for k,v in sps.items():",
+                    "        nsps[k]=[]",
+                    "        if k=='date_split':",
+                    "            for kk in sorted(v.keys()):",
+                    "                nsps[k].append(v[kk].strftime('%Y%m%d'))",
+                    "        else:",
+                    "            for kk in sorted(v.keys()):",
+                    "                nsps[k].append(v[kk])",
+                    "",
+                    "    return nsps"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "I am being imported from another module\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "0844973A293F416589A16E6E97E142B2",
+                "elapsedTime": 353,
+                "height": 56
+            },
+            "evaluatorReader": true,
+            "lineCount": 21
+        },
+        {
+            "id": "codeSQdJ6z",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "import networkx as nx",
+                    "filedir='/home/mosesboudourides/Dropbox/GradRes/DiplwmatikiGP/Graphml nets/hashtags_co-occur_network_0.gpic'",
+                    "# filedir='/home/mosesboudourides/Dropbox/GradRes/DiplwmatikiGP/Graphml nets/users_mentions_network_0.gpic'",
+                    "# filedir='/home/sergios-len/Dropbox/GradRes/DiplwmatikiGP/Graphml nets/users_mentions_network_0.gpic'",
+                    "",
+                    "",
+                    "G=nx.read_gpickle(filedir)",
+                    "nx.is_directed(G)"
+                ]
+            },
+            "output": {
+                "state": {},
+                "selectedType": "Html",
+                "pluginName": "IPython",
+                "shellId": "0844973A293F416589A16E6E97E142B2",
+                "elapsedTime": 327,
+                "result": "<div class=\"output_subarea output_text\"><pre>False</pre></div>",
+                "dataresult": false,
+                "height": 54
+            },
+            "evaluatorReader": true,
+            "lineCount": 8
+        },
+        {
+            "id": "codecLJCOd",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "edw={}",
+                    "",
+                    "for ed in G.edges(data=True):",
+                    "#     print ed[0],ed[1],ed[2]",
+                    "    wei=ed[2]['weight']",
+                    "#     print wei",
+                    "    if wei not in edw:",
+                    "        edw[wei]=[]",
+                    "#     print sorted(ed[0],ed[1])",
+                    "    edw[wei].append(sorted([ed[0],ed[1]]))",
+                    "print len(set(edw.keys()))"
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "141\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "0844973A293F416589A16E6E97E142B2",
+                "elapsedTime": 307,
+                "height": 56
+            },
+            "evaluatorReader": true,
+            "lineCount": 11
+        },
+        {
+            "id": "codefbOWRX",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    "nodes_coff={}",
+                    "for ww,nds in edw.items():",
+                    "    if ww not in nodes_coff:",
+                    "        nodes_coff[ww]=set()",
+                    "    for nd in nds:",
+                    "#         print ww,nd",
+                    "        nodes_coff[ww].add(nd[0])",
+                    "        nodes_coff[ww].add(nd[1])",
+                    "",
+                    "# nod_to_keep=utils.get_nodes_to_keep(G,weight_cut)",
+                    "        ",
+                    "# print nodes_coff",
+                    "for ww in nodes_coff:",
+                    "    nod_to_keep=utils.get_nodes_to_keep(G,ww)",
+                    "    graphfil='/home/mosesboudourides/Dropbox/GradRes/DiplwmatikiGP/Graphml nets/cut_hashtag_networks/h_%s.gpic' %ww",
+                    "#     graphfil='/home/mosesboudourides/Dropbox/GradRes/DiplwmatikiGP/Graphml nets/cut_mention_networks/m_%s.gpic' %ww",
+                    "",
+                    "#     graphfil='/home/sergios-len/Dropbox/GradRes/DiplwmatikiGP/Graphml nets/cut_mention_networks/m_%s.gpic' %ww",
+                    "    graph=nx.subgraph(G, list(nod_to_keep))",
+                    "    nx.write_gpickle(graph,graphfil)",
+                    "",
+                    "    "
+                ]
+            },
+            "output": {
+                "state": {},
+                "result": {
+                    "type": "Results",
+                    "outputdata": [
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 9139\nwith cutoff = 1\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 3082\nwith cutoff = 2\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 1892\nwith cutoff = 3\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 1397\nwith cutoff = 4\n9139 ==> 1084\nwith cutoff = 5\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 889\nwith cutoff = 6\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 761\nwith cutoff = 7\n9139 ==> 676\nwith cutoff = 8\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 607\nwith cutoff = 9\n9139 ==> 552\nwith cutoff = 10\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 506\nwith cutoff = 11\n9139 ==> 453\nwith cutoff = 12\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 416\nwith cutoff = 13\n9139 ==> 388\nwith cutoff = 14\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 363\nwith cutoff = 15\n9139 ==> 342\nwith cutoff = 16\n9139 ==> 326\nwith cutoff = 17\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 307\nwith cutoff = 18\n9139 ==> 293\nwith cutoff = 19\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 276\nwith cutoff = 20\n9139 ==> 256\nwith cutoff = 21\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 246\nwith cutoff = 22\n9139 ==> 235\nwith cutoff = 23\n9139 ==> 229\nwith cutoff = 24\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 215\nwith cutoff = 25\n9139 ==> 208\nwith cutoff = 26\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 199\nwith cutoff = 27\n9139 ==> 192\nwith cutoff = 28\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 188\nwith cutoff = 29\n9139 ==> 181\nwith cutoff = 30\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 177\nwith cutoff = 31\n9139 ==> 173\nwith cutoff = 32\n9139 ==> 164\nwith cutoff = 33\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 160\nwith cutoff = 34\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 154\nwith cutoff = 35\n9139 ==> 147\nwith cutoff = 36\n9139 ==> 141\nwith cutoff = 37\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 135\nwith cutoff = 38\n9139 ==> 132\nwith cutoff = 39\n9139 ==> 129\nwith cutoff = 40\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 127\nwith cutoff = 41\n9139 ==> 123\nwith cutoff = 42\n9139 ==> 122\nwith cutoff = 43\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 118\nwith cutoff = 44\n9139 ==> 116\nwith cutoff = 45\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 112\nwith cutoff = 46\n9139 ==> 109\nwith cutoff = 47\n9139 ==> 105\nwith cutoff = 48\n9139 ==> 104\nwith cutoff = 49\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 101\nwith cutoff = 50\n9139 ==> 98\nwith cutoff = 51\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 97\nwith cutoff = 52\n9139 ==> 94\nwith cutoff = 53\n9139 ==> 92\nwith cutoff = 54\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 90\nwith cutoff = 55\n9139 ==> 90\nwith cutoff = 56\n9139 ==> 88\nwith cutoff = 57\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 86\nwith cutoff = 58\n9139 ==> 86\nwith cutoff = 59\n9139 ==> 85\nwith cutoff = 60\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 84\nwith cutoff = 61\n9139 ==> 84\nwith cutoff = 62\n9139 ==> 83\nwith cutoff = 63\n9139 ==> 81\nwith cutoff = 64\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 79\nwith cutoff = 65\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 79\nwith cutoff = 66\n9139 ==> 73\nwith cutoff = 67\n9139 ==> 72\nwith cutoff = 68\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 71\nwith cutoff = 70\n9139 ==> 70\nwith cutoff = 71\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 68\nwith cutoff = 72\n9139 ==> 11\nwith cutoff = 585\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 67\nwith cutoff = 74\n9139 ==> 65\nwith cutoff = 75\n9139 ==> 65\nwith cutoff = 76\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 63\nwith cutoff = 77\n9139 ==> 62\nwith cutoff = 79\n9139 ==> 61\nwith cutoff = 80\n9139 ==> 58\nwith cutoff = 82\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 57\nwith cutoff = 84\n9139 ==> 12\nwith cutoff = 526\n9139 ==> 56\nwith cutoff = 86\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 56\nwith cutoff = 87\n9139 ==> 56\nwith cutoff = 88\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 55\nwith cutoff = 89\n9139 ==> 53\nwith cutoff = 93\n9139 ==> 53\nwith cutoff = 94\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 52\nwith cutoff = 96\n9139 ==> 51\nwith cutoff = 97\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 50\nwith cutoff = 98\n9139 ==> 48\nwith cutoff = 101\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 10\nwith cutoff = 618\n9139 ==> 46\nwith cutoff = 108\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 45\nwith cutoff = 111\n9139 ==> 44\nwith cutoff = 115\n9139 ==> 43\nwith cutoff = 117\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 42\nwith cutoff = 122\n9139 ==> 41\nwith cutoff = 123\n9139 ==> 40\nwith cutoff = 131\n9139 ==> 40\nwith cutoff = 134\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 39\nwith cutoff = 136\n9139 ==> 39\nwith cutoff = 145\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 38\nwith cutoff = 147\n9139 ==> 37\nwith cutoff = 151\n9139 ==> 9\nwith cutoff = 666\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 36\nwith cutoff = 155\n9139 ==> 35\nwith cutoff = 157\n9139 ==> 34\nwith cutoff = 160\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 33\nwith cutoff = 161\n9139 ==> 32\nwith cutoff = 169\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 30\nwith cutoff = 170\n9139 ==> 30\nwith cutoff = 178\n9139 ==> 30\nwith cutoff = 181\n9139 ==> 29\nwith cutoff = 182\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 29\nwith cutoff = 193\n9139 ==> 5\nwith cutoff = 1218\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 28\nwith cutoff = 203\n9139 ==> 27\nwith cutoff = 206\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 27\nwith cutoff = 211\n9139 ==> 26\nwith cutoff = 214\n9139 ==> 25\nwith cutoff = 230\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 25\nwith cutoff = 231\n9139 ==> 24\nwith cutoff = 238\n9139 ==> 24\nwith cutoff = 239\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 22\nwith cutoff = 245\n9139 ==> 21\nwith cutoff = 246\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 20\nwith cutoff = 256\n9139 ==> 8\nwith cutoff = 726\n9139 ==> 19\nwith cutoff = 290\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 6\nwith cutoff = 1135\n9139 ==> 18\nwith cutoff = 321\n9139 ==> 17\nwith cutoff = 326\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 16\nwith cutoff = 345\n9139 ==> 7\nwith cutoff = 1087\n9139 ==> 15\nwith cutoff = 382\n9139 ==>"
+                        },
+                        {
+                            "type": "out",
+                            "value": " 3\nwith cutoff = 1409\n9139 ==> 14\nwith cutoff = 388\n9139 ==> 4\nwith cutoff = 1263\n"
+                        },
+                        {
+                            "type": "out",
+                            "value": "9139 ==> 2\nwith cutoff = 1452\n9139 ==> 68\nwith cutoff = 73\n9139 ==> 13\nwith cutoff = 491\n"
+                        }
+                    ]
+                },
+                "selectedType": "Results",
+                "pluginName": "IPython",
+                "shellId": "0844973A293F416589A16E6E97E142B2",
+                "elapsedTime": 17948,
+                "height": 5290
+            },
+            "evaluatorReader": true,
+            "lineCount": 22
+        },
+        {
+            "id": "codefFU8V9",
+            "type": "code",
+            "evaluator": "IPython",
+            "input": {
+                "body": [
+                    ""
+                ]
+            },
+            "output": {
+                "state": {}
+            },
+            "evaluatorReader": true
+        }
+    ],
+    "namespace": {}
+}
